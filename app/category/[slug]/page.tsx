@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense ,useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { toBengaliNumber } from "@/app/lib/utils";
@@ -29,7 +29,7 @@ const unitBn: Record<string, string> = {
   piece: "টি",
 };
 
-export default function CategoryPage() {
+function CategoryContent() {
   const params = useParams();
   const slug = params.slug as string;
 
@@ -112,7 +112,7 @@ export default function CategoryPage() {
         {/* Category Banner */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-4 flex items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-2xl shrink-0">
-            {category?.icon || "🛒"}
+            {category?.icon || " "}
           </div>
           <div>
             <h1 className="text-2xl font-bold text-slate-900">{category?.nameBn || slug}</h1>
@@ -180,5 +180,12 @@ export default function CategoryPage() {
         </div>
       </main>
     </div>
+  );
+}
+export default function CategoryPage() {
+  return (
+    <Suspense fallback={<div className="p-6">লোড হচ্ছে...</div>}>
+      <CategoryContent />
+    </Suspense>
   );
 }

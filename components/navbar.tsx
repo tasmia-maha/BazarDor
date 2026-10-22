@@ -4,15 +4,16 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession, signOut } from "@/app/lib/auth-client";
-import { Category, getBanglaDate } from "@/app/lib/utils";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import { Category, getBanglaDate } from "@/app/lib/utils";
 
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session, isPending } = useSession();
   const [categories, setCategories] = useState<Category[]>([]);
+  const [banglaDate, setBanglaDate] = useState("");
 
   useEffect(() => {
     fetch("https://api.api-store.workers.dev/api/bazardor/categories")
@@ -20,6 +21,10 @@ export default function Navbar() {
       .then((data) => setCategories(data))
       .catch(() => {});
   }, []);
+
+ useEffect(() => {
+  setBanglaDate(getBanglaDate());
+}, []);
 
   const handleSignOut = async () => {
     await signOut({
@@ -45,7 +50,7 @@ export default function Navbar() {
             <div className="flex flex-col">
               <h3 className="text-black font-bold">বাজার দর</h3>
               <span className="text-xs text-slate-500 hidden sm:inline-block border-l pl-3 border-slate-300">
-                {getBanglaDate()}
+                {banglaDate}
               </span>
             </div>
           </div>

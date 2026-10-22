@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { toBengaliNumber } from "@/app/lib/utils";
+import { Suspense } from "react";
 
 interface Market {
   market: string;
@@ -44,7 +45,7 @@ async function getProduct(slug: string): Promise<ProductDetail | null> {
   return products.find((p) => p.slug === slug) || null;
 }
 
-export default async function ProductPage({
+async function ProductContent({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -240,5 +241,20 @@ export default async function ProductPage({
         </section>
       </main>
     </div>
+  );
+}
+export default function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-6 text-center">পণ্যের তথ্য লোড হচ্ছে...</div>
+      }
+    >
+      <ProductContent params={params} />
+    </Suspense>
   );
 }

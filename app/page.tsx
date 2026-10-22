@@ -1,6 +1,7 @@
 import Hero from "@/components/hero";
 import ProductCard from "@/components/productCard";
 import { Product, toBengaliNumber } from "@/app/lib/utils";
+import { Suspense } from "react";
 
 async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://api.api-store.workers.dev/api/bazardor/products", {
@@ -10,7 +11,7 @@ async function getProducts(): Promise<Product[]> {
   return res.json();
 }
 
-export default async function HomePage() {
+async function HomeContent() {
   const products = await getProducts();
 
   const risers = products
@@ -80,5 +81,18 @@ export default async function HomePage() {
         </section>
       </div>
     </div>
+  );
+}
+export default function HomePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen p-6 text-center">
+          পণ্য লোড হচ্ছে...
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 }

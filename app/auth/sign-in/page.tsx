@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense,useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "@/app/lib/auth-client";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-export default function SignInPage() {
+function SignInContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -99,5 +99,16 @@ export default function SignInPage() {
         </p>
       </div>
     </div>
+  );
+}
+export default function SignInPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-6 text-center">লোড হচ্ছে...</div>
+      }
+    >
+      <SignInContent />
+    </Suspense>
   );
 }
