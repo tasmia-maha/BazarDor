@@ -1,65 +1,84 @@
+import Hero from "@/components/hero";
+import ProductCard from "@/components/productCard";
+import { Product, toBengaliNumber } from "@/app/lib/utils";
 
-import { getProducts } from "./lib/api";
+async function getProducts(): Promise<Product[]> {
+  const res = await fetch("https://api.api-store.workers.dev/api/bazardor/products", {
+    next: { revalidate: 60 },
+  });
+  if (!res.ok) throw new Error("Failed to fetch products");
+  return res.json();
+}
 
-export default async function Home() {
+export default async function HomePage() {
   const products = await getProducts();
 
+  const risers = products
+    .filter((p) => p.change.dir === "up")
+    .sort((a, b) => b.change.pct - a.change.pct)
+    .slice(0, 6);
+
+  const fallers = products
+    .filter((p) => p.change.dir === "down")
+    .sort((a, b) => b.change.pct - a.change.pct)
+    .slice(0, 6);
+
   return (
-    <main className="min-h-screen bg-green-50 p-6">
-      <header className="mb-8 rounded-xl bg-white p-5 shadow-sm">
-        <h1 className="text-3xl font-bold text-green-800">
-          🛒 বাজার দর
-        </h1>
-        <p className="mt-2 text-sm text-gray-600">
-          প্রতিদিনের বাজারদর জানুন সহজেই
-        </p>
-      </header>
+    <div className="bg-base-300 min-h-screen pb-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-10">
+        <Hero />
 
-      <h2 className="mb-4 text-xl font-bold text-gray-800">
-        সব পণ্য
-      </h2>
-
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <article
-            key={product.id}
-            className="rounded-xl border border-green-100 bg-white p-5 shadow-sm"
-          >
-            <p className="text-4xl">{product.image}</p>
-
-            <h3 className="mt-3 text-lg font-bold text-gray-800">
-              {product.nameBn}
-            </h3>
-
-            <p className="mt-1 text-sm text-gray-500">
-              প্রতি {product.unit}
-            </p>
-
-            <div className="mt-4 flex items-center justify-between gap-2">
-              <p className="font-semibold text-gray-800">
-                আজকের দাম: {product.today} টাকা
-              </p>
-
-              <span
-                className={`rounded-full px-2 py-1 text-sm ${
-                  product.change.dir === "up"
-                    ? "bg-red-100 text-red-700"
-                    : product.change.dir === "down"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-gray-100 text-gray-600"
-                }`}
-              >
-                {product.change.dir === "up"
-                  ? "▲"
-                  : product.change.dir === "down"
-                  ? "▼"
-                  : "—"}{" "}
-                {product.change.pct}%
-              </span>
+        {/* Price Risers */}
+        {risers.length > 0 && (
+          <section>
+            <div className="flex items-center space-x-2 mb-4">
+              <span className="text-red-600 font-bold text-sm">▲</span>
+              <h2 className="text-base sm:text-lg font-bold text-slate-900">
+                আজ দাম বেড়েছে
+              </h2>
             </div>
-          </article>
-        ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {risers.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Price Fallers */}
+        {fallers.length > 0 && (
+          <section>
+            <div className="flex items-center space-x-2 mb-4">
+              <span className="text-emerald-600 font-bold text-sm">▼</span>
+              <h2 className="text-base sm:text-lg font-bold text-slate-900">
+                আজ দাম কমেছে
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {fallers.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* All Products */}
+        <section id="সব-পণ্য" className="scroll-mt-20">
+          <div className="mb-4 space-y-0.5">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900">
+              সব পণ্য
+            </h2>
+            <p className="text-xs text-slate-500">
+              মোট {toBengaliNumber(products.length)}টি পণ্য দেখানো হচ্ছে
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
       </div>
-    </main>
+    </div>
   );
 }
