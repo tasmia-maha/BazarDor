@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { toBengaliNumber } from "@/app/lib/utils";
 import { Suspense } from "react";
+import { FaCaretDown,FaCaretUp,FaMinus } from "react-icons/fa";
 
 interface Market {
   market: string;
@@ -125,16 +126,16 @@ async function ProductContent({
                 </span>
                 {product.change?.dir === "up" && (
                   <span className="badge badge-sm bg-red-50 text-red-600 border-red-100">
-                    ▲ {toBengaliNumber(product.change.pct)}%
+                    <FaCaretUp size={12}/>{toBengaliNumber(product.change.pct)}%
                   </span>
                 )}
                 {product.change?.dir === "down" && (
                   <span className="badge badge-sm bg-emerald-50 text-emerald-600 border-emerald-100">
-                    ▼ {toBengaliNumber(product.change.pct)}%
+                    <FaCaretDown size={12}/>{toBengaliNumber(product.change.pct)}%
                   </span>
                 )}
                 {product.change?.dir === "flat" && (
-                  <span className="badge badge-sm bg-slate-100 text-slate-500 border-slate-200">— ০%</span>
+                  <span className="badge badge-sm bg-slate-100 text-slate-500 border-slate-200"><FaMinus size={12}/> ০%</span>
                 )}
               </div>
             </div>

@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { toBengaliNumber } from "@/app/lib/utils";
 import SortDropdown from "@/components/sortDropDown";
-
+import { FaCaretDown,FaCaretUp,FaMinus } from "react-icons/fa";
 interface ProductItem {
   id: number;
   slug: string;
@@ -161,17 +161,17 @@ function CategoryContent() {
 
                 {item.change?.dir === "up" && (
                   <span className="text-xs font-semibold text-red-600 bg-red-50 px-2 py-1 rounded-full shrink-0">
-                    ▲ {toBengaliNumber(item.change.pct)}%
+                    <FaCaretUp size={12}/>{toBengaliNumber(item.change.pct)}%
                   </span>
                 )}
                 {item.change?.dir === "down" && (
                   <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full shrink-0">
-                    ▼ {toBengaliNumber(item.change.pct)}%
+                    <FaCaretDown size={12}/>{toBengaliNumber(item.change.pct)}%
                   </span>
                 )}
                 {item.change?.dir === "flat" && (
                   <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2 py-1 rounded-full shrink-0">
-                    — ০%
+                    <FaMinus size={12}/> ০%
                   </span>
                 )}
               </div>
