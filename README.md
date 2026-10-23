@@ -6,7 +6,7 @@ BazarDor is a responsive web application designed to help users explore daily es
 
 ## Live Demo
 
-**Live Website:** [Visit BazarDor](YOUR_LIVE_LINK_HERE)
+[**Live Website:**(https://bazar-dor-gilt-seven.vercel.app/)
 
 ## Screenshots
 
@@ -45,13 +45,3 @@ BazarDor is a responsive web application designed to help users explore daily es
 
 ## Project Structure
 
-```text
-bazar-dor/
-├── app/
-├── components/
-├── public/
-├── app/lib/
-├── .env
-├── package.json
-└── README.md
-```
