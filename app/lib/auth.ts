@@ -1,8 +1,7 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
-import { mongodbAdapter } from "@better-auth/mongo-adapter";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
-// Next.js dev hot-reload-এ বারবার new client তৈরি হয়ে connection pool শেষ হয় — তাই global cache
 const globalForMongo = globalThis as unknown as { mongoClient?: MongoClient };
 
 const client =
@@ -15,7 +14,7 @@ globalForMongo.mongoClient = client;
 const db = client.db("bazardor");
 
 export const auth = betterAuth({
-  secret: process.env.BETTER_AUTH_SECRET, // এটাও .env-এ যোগ করুন
+  secret: process.env.BETTER_AUTH_SECRET, 
   emailAndPassword: { enabled: true },
   socialProviders: {
     google: {
@@ -27,6 +26,5 @@ export const auth = betterAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     },
   },
-  database: mongodbAdapter(db), // local/standalone হলে {client} বাদ
-  // Atlas (replica set) হলে: mongodbAdapter(db, { client })
+  database: mongodbAdapter(db), 
 });
