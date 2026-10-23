@@ -2,6 +2,7 @@ import Hero from "@/components/hero";
 import ProductCard from "@/components/productCard";
 import { Product, toBengaliNumber } from "@/app/lib/utils";
 import { Suspense } from "react";
+export const dynamic = "force-dynamic";
 
 async function getProducts(): Promise<Product[]> {
   const res = await fetch("https://api.api-store.workers.dev/api/bazardor/products", {
