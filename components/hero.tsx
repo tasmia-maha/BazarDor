@@ -3,11 +3,8 @@ import { connection } from "next/server";
 import BanglaDate from "./bangla-date";
 import Image from "next/image";
 
-
 export default async function Hero() {
   await connection();
-
-  
 
   return (
     <div className="bg-white mt-5 rounded-3xl p-6 sm:p-10 border border-emerald-100 flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">

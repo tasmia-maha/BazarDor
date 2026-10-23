@@ -106,7 +106,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {/*  HAMBURGER BUTTON (mobile e matro)  */}
+            {/*  HAMBURGER BUTTON */}
             <button
               onClick={() => setMenuOpen((o) => !o)}
               className="btn btn-ghost btn-circle md:hidden"
@@ -125,7 +125,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/*  Category pills — ekhon desktop e matro (mobile e hamburger e ache)*/}
+        
         <div className="hidden md:flex items-center space-x-1 overflow-x-auto py-2 text-sm no-scrollbar border-t border-slate-100">
           {categories.map((cat) => {
             const isActive = pathname === `/category/${cat.slug}`;
