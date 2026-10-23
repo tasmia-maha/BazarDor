@@ -1,19 +1,20 @@
 
 import { connection } from "next/server";
-import { getBanglaDate } from "@/app/lib/utils";
+import BanglaDate from "./bangla-date";
 import Image from "next/image";
+
 
 export default async function Hero() {
   await connection();
 
-  const banglaDate = getBanglaDate();
+  
 
   return (
     <div className="bg-white mt-5 rounded-3xl p-6 sm:p-10 border border-emerald-100 flex flex-col md:flex-row justify-between items-center gap-6 relative overflow-hidden">
       {/* Left Content */}
       <div className="space-y-3 max-w-full text-center md:text-left z-10">
         <div className="inline-block bg-[#d2e7d5] text-emerald-900 text-xs px-3 py-1 rounded-full font-medium">
-          {banglaDate}
+          <BanglaDate/>
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
