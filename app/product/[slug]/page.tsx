@@ -36,7 +36,7 @@ const unitBn: Record<string, string> = {
   piece: "টি",
 };
 
-// Feature 1: slug দিয়ে Product খোঁজা
+
 async function getProduct(slug: string): Promise<ProductDetail | null> {
   const res = await fetch("https://api.api-store.workers.dev/api/bazardor/products", {
     next: { revalidate: 60 },
@@ -51,18 +51,18 @@ async function ProductContent({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  // Feature 3: Next.js 16-তে params হলো Promise
+
   const { slug } = await params;
 
   const product = await getProduct(slug);
 
-  // Feature 2: না পেলে 404
+
   if (!product) notFound();
 
   const markets = product.markets ?? [];
   const hasMarkets = markets.length > 0;
 
-  // Feature 4: Markets কে Division অনুযায়ী গ্রুপ করা (reduce)
+  
   const marketsByDivision = markets.reduce(
     (acc, market) => {
       if (!acc[market.division]) acc[market.division] = [];
@@ -72,7 +72,7 @@ async function ProductContent({
     {} as Record<string, Market[]>
   );
 
-  // Feature 5: Price statistics
+  
   const allMins = markets.map((m) => m.min);
   const allMaxs = markets.map((m) => m.max);
   const minPrice = hasMarkets ? Math.min(...allMins) : product.today;
@@ -83,7 +83,7 @@ async function ProductContent({
 
   const unitLabel = `প্রতি ${unitBn[product.unit] || product.unit || "কেজি"}`;
 
-  // Feature 6e: Historical comparison data
+  
   const history = [
     { label: "আজ", value: product.today },
     { label: "গতকাল", value: product.yesterday },
@@ -95,7 +95,7 @@ async function ProductContent({
     <div className="min-h-screen bg-base-300 text-slate-800">
       <main className="max-w-6xl mx-auto p-6 space-y-5">
 
-        {/* Feature 6a: Breadcrumb */}
+        
         <div className="breadcrumbs text-sm text-slate-500">
           <ul>
             <li><Link href="/" className="hover:text-emerald-600">হোম</Link></li>
@@ -108,11 +108,11 @@ async function ProductContent({
           </ul>
         </div>
 
-        {/* Feature 6b: Summary Card */}
+        
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center text-3xl shrink-0">
-              {product.image || "🛒"}
+              {product.image || ""}
             </div>
             <div>
               <h1 className="text-2xl font-bold text-slate-900">{product.nameBn}</h1>
@@ -147,7 +147,7 @@ async function ProductContent({
           </div>
         </div>
 
-        {/* Feature 5 + 6c: Price Cards (৪টা grid) */}
+        
         <section>
           <h2 className="font-bold text-slate-800 mb-3">দামের সারসংক্ষেপ</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -176,7 +176,7 @@ async function ProductContent({
           </div>
         </section>
 
-        {/* Feature 4 + 6d: Division-wise Market Table */}
+        
         <section>
           <h2 className="font-bold text-slate-800 mb-3">বাজারভিত্তিক বাজারের দাম</h2>
           {hasMarkets ? (
@@ -215,7 +215,7 @@ async function ProductContent({
           )}
         </section>
 
-        {/* Feature 6e: Historical Comparison */}
+     
         <section>
           <h2 className="font-bold text-slate-800 mb-3">দামের প্রবণতা</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
