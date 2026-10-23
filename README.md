@@ -1,31 +1,57 @@
 # বাজার দর | BazarDor
 
-**BazarDor** is a grocery price browsing web application that helps users explore products, check prices, browse categories, and manage their profiles through a simple and responsive interface.
+### Your Everyday Essential Price Guide
 
-## Technologies Used
+BazarDor is a responsive web application designed to help users explore daily essential products and check their prices easily. It provides a simple and user-friendly interface to browse products by category and view product details.
 
-- **Next.js** — React framework
-- **React** — User interface
-- **TypeScript** — Type-safe development
-- **Tailwind CSS** — Styling and responsive design
-- **DaisyUI** — UI components
-- **Better Auth** — Authentication
-- **MongoDB** — Database
+## Live Demo
+
+**Live Website:** [Visit BazarDor](YOUR_LIVE_LINK_HERE)
+
+## Screenshots
+
+### Homepage
+
+![BazarDor Homepage](./screenshots/homepage.png)
+
+### Product Listing
+
+![BazarDor Products](./screenshots/products.png)
+
+### Product Details
+
+![BazarDor Product Details](./screenshots/product-details.png)
+
+> **Note:** Add your screenshots to the `screenshots` folder and update the image paths if needed.
 
 ## Key Features
 
-1. **Product Browsing:** Explore grocery products and view their prices.
-2. **Category Filtering & Sorting:** Find products by category and sort them.
-3. **Product Details:** View detailed information about individual products.
-4. **Authentication:** Sign up and sign in to an account.
-5. **Profile Management:** View and update profile information.
+- **Product Browsing:** Explore daily essential products in one place.
+- **Category Filtering:** Browse products by categories such as rice and other essentials.
+- **Product Details:** View detailed information about individual products.
+- **Responsive Design:** Enjoy a smooth browsing experience on desktop, tablet, and mobile devices.
+- **Authentication:** Sign up and sign in to access the authentication features.
 
-## Run Locally
+## Technologies Used
 
-1. Clone the repository.
-2. Install dependencies using `npm install`.
-3. Configure the required environment variables in `.env`.
-4. Start the development server using `npm run dev`.
-5. Open [http://localhost:3000](http://localhost:3000).
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- MongoDB
+- Better Auth
+- REST API
+- Git & GitHub
 
----
+## Project Structure
+
+```text
+bazar-dor/
+├── app/
+├── components/
+├── public/
+├── app/lib/
+├── .env
+├── package.json
+└── README.md
+```
